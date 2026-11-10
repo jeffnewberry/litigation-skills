@@ -5,7 +5,7 @@ Three skills for lawyers who draft with Claude. Each one is a folder of instruct
 | Skill | What it does |
 |---|---|
 | [f-appx-not-fed-appx](skills/f-appx-not-fed-appx/) | Checks and corrects citations under the Bluebook (22nd ed.), labels every fix by how sure it is, and sends you to the book for anything it has not recorded. |
-| [cite-viewer](skills/cite-viewer/) | Builds a page on your own computer where every citation in your draft opens the cited passage from Westlaw, marked to show whether it supports your sentence. |
+| [cite-viewer](skills/cite-viewer/) | Builds a page on your own computer where every citation in your draft opens the cited passage from the source, marked to show whether it supports your sentence. |
 | [derivative-docs](skills/derivative-docs/) | Builds the companions to a main pleading (appendix, stay motion, IFP motion, proposed order, record excerpts) so the caption, counsel block, and relief match exactly. Checklists cover Texas and federal capital habeas practice. |
 
 ## How to install a skill
@@ -17,7 +17,7 @@ Three skills for lawyers who draft with Claude. Each one is a folder of instruct
 
 Menu names in Claude change from time to time. If you cannot find the Skills setting, search Claude’s help center for “skills.”
 
-Each skill has a **Settings** section near the top. Edit it to match your own house style, courts, and tools before you rely on the skill.
+The derivative-docs skill has a **Settings** section near the top. Edit it to match your own house style, courts, and file names before you rely on it.
 
 ## Disclaimer
 
@@ -25,7 +25,7 @@ These skills are offered free, as is, with no warranty. They are not legal advic
 
 Court rules and citation manuals change. Confirm every rule these skills cite against the current version before relying on it.
 
-These skills are not affiliated with, endorsed by, or sponsored by Anthropic, Thomson Reuters (Westlaw), Bloomberg Law, or the publishers of any citation manual.
+These skills are not affiliated with, endorsed by, or sponsored by Anthropic, Thomson Reuters (Westlaw), LexisNexis, or the publishers of any citation manual.
 
 Never put confidential client material anywhere public. The cite viewer is built to stay on your own computer for that reason.
 
