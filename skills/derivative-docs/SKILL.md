@@ -20,7 +20,7 @@ A derivative document is one that travels with a main pleading: an appendix, a s
 
 ## Trigger
 
-Run when the user says “derivative docs” or “derivatives,” or when he asks for any of the five documents above and a main pleading exists (pasted, attached, or named). If he asks for one of the five and no main pleading is in the chat, ask for it before doing anything else.
+Run when the user says “derivative docs” or “derivatives,” or when the user asks for any of the five documents above and a main pleading exists (pasted, attached, or named). If the user asks for one of the five and no main pleading is in the chat, ask for it before doing anything else.
 
 ## Intake
 
