@@ -26,7 +26,7 @@ Ask, in one short block, only what the user has not already said:
 3. Sources: "Should I pull the cases from Westlaw for you, or will you put the PDFs in a folder yourself?" (Westlaw users: see step 3. Lexis or other users: step 3a.)
 4. Record cites: "Do you want record cites linked too? If so, which folder on your computer holds the record, and how do you cite it? Give me one example cite from your draft (for example, 12 R.R. 41, ROA.1234, Dkt. 52 at 3, or JA 123)." Any folder works (Dropbox, OneDrive, or a plain folder), because the viewer links the files where they sit and copies nothing. If the user says no, record cites show as "Source not loaded."
 
-Asking for the viewer is the go-ahead to pull the sources and save the viewer folder.
+Asking for the viewer is the go-ahead to save the viewer folder and, after the cost warning in step 3, to pull the sources.
 
 ## Steps
 
@@ -46,12 +46,12 @@ If the draft uses a short cite or *supra* with no full cite anywhere, do not gue
 One entry per authority: the reporter citation ("466 U.S. 668"), the WL citation for unpublished opinions, the code and section for statutes, and "volume abbreviation first-page" for articles. Separate entries with semicolons, up to 100. Leave out record cites and anything Westlaw does not carry; list them for the report.
 
 ### 3. Pull the sources from Westlaw (Find & Print)
+- Before pulling anything, tell the user once that Find & Print requests may be charged under their Westlaw plan, and go ahead only after they confirm.
 - Open Westlaw in the browser and ask the user to sign in the way they usually do: a firm sign-on, a law school portal, or a Thomson Reuters ID. Tell them that if the page you opened is not the one they normally use, they can go to their usual sign-in page in the same browser window. Never enter passwords; once they are signed in, do the rest.
 - Go to Find & Print and paste the list.
 - Settings: Cases → opinion only (no headnotes); Statutes → statutory text only; leave "Substitute with reporter images" unchecked, because the star paging must be text; Delivery → Download; Format → PDF; As → Multiple files (ZIP); turn off dual-column layout.
 - Submit. If Westlaw rejects some citations, take them out, continue, and report them.
 - When the download is ready, click Westlaw's Download button. The browser then shows its own save window, which you cannot press. Tell the user it is coming and ask them to click Save (or Download) in that window. The ZIP lands in their Downloads folder.
-- Tell the user once that Find & Print requests may be charged under their Westlaw plan.
 
 ### 3a. Sources the user supplies
 Ask the user to put one PDF per authority in a folder and tell you which folder. Text PDFs only; if a PDF is a scan with no text, ask for a text version.
@@ -103,7 +103,7 @@ Record links need a separate check, because you cannot click a link on the user'
 
 ### 9. Report
 Short, strongest point first:
-- Where the folder is, and how to open the viewer: "Open the viewer in Google Chrome (right-click the HTML file, choose Open With, then Google Chrome). We have tested it on a Mac with Chrome, and it works there. Safari blocks the record links. We have tested record links with Texas-style record cites (12 R.R. 41) but not yet with other formats. We have not tested it on a Windows PC. Chrome should work there too, and Microsoft Edge may, but we have not tried either."
+- Where the folder is, and how to open the viewer: "Open the viewer in Google Chrome (right-click the HTML file, choose Open With, then Google Chrome). The author has tested it on a Mac with Chrome, and it works there. Safari blocks the record links. The author has tested record links with Texas-style record cites (12 R.R. 41) but not yet with other formats. The author has not tested it on a Windows PC. Chrome should work there too, and Microsoft Edge may, but the author has not tried either."
 - Counts by status.
 - Each "check" item in one or two lines, with its fix.
 - The "no pincite" cites, uncited statements, sources not loaded or rejected, and any record files that could not be linked.

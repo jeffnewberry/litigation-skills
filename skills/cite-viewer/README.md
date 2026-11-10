@@ -11,7 +11,7 @@ Legal statements with no citation are marked too. Record cites (a reporter’s r
 
 ## What you need
 
-- The sources as PDFs. Westlaw users can let Claude pull them with Find & Print (charged under your plan). Lexis or other users put one PDF per authority in a folder.
+- The sources as PDFs. Westlaw users can let Claude pull them with Find & Print (charged under your plan). Lexis or other users put one PDF per authority in a folder. Lexis PDFs mark pages differently, so for those the viewer finds each passage by its quoted or relied-on language rather than by star page; a pin to a paraphrased point may need your eye.
 - A computer (not a phone or tablet) where the PDFs and the viewer can be saved.
 - Claude with access to a folder on your computer, and a browser if Claude is pulling from Westlaw.
 
