@@ -1,131 +1,118 @@
 ---
-name: cite-viewer
-description: "Run when the user says “cite viewer,” “viewer,” or “build the viewer”: a local click-through page where each citation in a draft opens the cited passage from the Westlaw source, with a status showing whether the passage supports the sentence."
+name: "cite-viewer"
+description: "Run when the user says \"cite viewer\" or \"build the viewer\": a local click-through page where each citation in a draft opens the cited passage from the source, with optional links to the record."
 ---
 
 # Cite viewer
 
-The cite viewer is a local HTML page showing the user’s draft (or one section of it). Every citation is a link, underlined in a color for its status. Clicking a citation shows the cited star page from the Westlaw PDF, with the quoted or relied-on language shaded, plus a link that opens the full PDF at that page. The viewer does not replace reading the cases. It makes the reading fast, and it records whether each passage supports the sentence that cites it.
+The cite viewer is a local web page showing the user's draft (or one section of it). Every citation is a link, underlined in a color for its status. Clicking a citation shows the cited page from the source, with the quoted or relied-on language shaded, a note on whether the passage supports the sentence, a link that opens the full source at that page, and a note box where the user can type a fix.
 
-**Requirements.** A Westlaw subscription with Find & Print, a computer (not a phone or tablet) where the PDFs can be saved, and a Claude setup that can use a browser and read files on that computer. The optional docket section uses Bloomberg Law.
+The viewer does not replace reading the cases, and it does not replace a citator (KeyCite or Shepard's). It makes the reading fast, and it records whether each passage supports the sentence that cites it.
 
-## Settings (edit these for your practice)
+## Two rules that never change
 
-- **Font for the page:** the user’s brief font first in the font list, then a standard serif fallback. Default: Georgia, serif.
-- **Folder name pattern:** default `client-matter-cite-viewer-scope.YYYYMMDD`.
-- **Cite-checking tool:** whatever the user runs before the viewer (for example, CoCounsel, KeyCite, or Shepard’s). Default: none named.
-- **Westlaw client ID:** if Westlaw asks for one, use the ID the user gives; never invent one.
+- **Never publish the viewer or host it anywhere.** It holds the user's draft, and with record links it points to record material. It stays on the user's computer as a file they open by double-clicking. Never offer to turn it into a shareable link. If the user asks to publish it anyway, warn them about client confidentiality first.
+- **Never change the draft.** The viewer reports problems; it does not fix them. Change the draft only when the user separately asks.
 
-## Where it sits in the drafting process
+## Where it fits
 
-1. Co-counsel comments are in, and the text is settled.
-2. The user runs a citator (KeyCite or Shepard’s) and any cite-checking tool.
-3. The user and Claude discuss that report, and Claude makes only the changes the user approves.
-4. **Cite viewer**, built on the revised draft. Tag any citations the cite-checking tool flagged as unsupported that are still disputed; the user reads those first.
-5. The user reads every citation, and they fix what the viewer flags.
-6. Quick re-check of only the citations changed in step 5.
-7. Final formatting.
-
-If the user asks for the viewer before steps 2 and 3, say in one line that it works best after them, then build it if they want it anyway.
+It works best on a draft whose text is settled and whose citations have already been through a cite-check and a citator, and before the final proofread. If the user asks for it earlier, say so in one line, then build it if they want it anyway.
 
 ## Before starting
 
-Ask, at the top and in one short block:
-- Which draft, if the user has not attached or named it. Use the version revised after the cite-check discussion.
-- Scope: the whole document, or named claims or sections.
-- Whether any cite-checker “does not support” flags are still disputed, and which ones.
-- If the draft leans on docket or record cites (ECF entries, orders, judgments, mandates), offer to pull them from Bloomberg Law (step 3A).
+Ask, in one short block, only what the user has not already said:
+1. Which draft. Ask them to attach it, or to name the file.
+2. Scope: the whole document, or named sections. Ask this even when the draft is short; never decide the scope yourself.
+3. Sources: "Should I pull the cases from Westlaw for you, or will you put the PDFs in a folder yourself?" (Westlaw users: see step 3. Lexis or other users: step 3a.)
+4. Record cites: "Do you want record cites linked too? If so, which folder on your computer holds the record, and how do you cite it? Give me one example cite from your draft (for example, 12 R.R. 41, ROA.1234, Dkt. 52 at 3, or JA 123)." Any folder works (Dropbox, OneDrive, or a plain folder), because the viewer links the files where they sit and copies nothing. If the user says no, record cites show as "Source not loaded."
 
-Asking for the viewer is the go-ahead to run Find & Print, download the ZIP, and save the viewer folder. Never change the draft itself without a separate go-ahead.
+Asking for the viewer is the go-ahead to pull the sources and save the viewer folder.
 
 ## Steps
 
 ### 1. Build the cite table
-Convert the draft to text (pandoc, or a Word-reading skill). Walk the scope in order and list every citation: full cites, short cites, *id.*, *supra*, statutes, secondary sources, and record cites (R.R., C.R., exhibits, ECF entries). For each one, record:
-- the id (c1, c2, and so on), and the citation exactly as written;
+Convert the draft to text. Walk the scope in order and list every citation: full cites, short cites, *id.*, *supra*, statutes, secondary sources, and record cites. For each one, record:
+- an id (c1, c2, and so on), and the citation exactly as written;
 - the authority it resolves to (resolve *id.* and short cites to the full authority);
 - the pincite or pincites;
 - the proposition, and any quoted language, from the sentence it supports;
-- whether the cite refers to specific material in the source (a holding, a test, a quotation) or only names the case as a whole (see step 6);
-- whether the cite-checking tool flagged it.
+- whether the cite relies on specific material in the source (a holding, a test, a quotation) or only names the case as a whole (see step 6).
 
 Note any legal statement in the scope that has no citation. The page marks these too.
 
-### 2. Build the Find & Print list
-Use one entry per authority: the reporter citation (“466 U.S. 668”), the WL citation for unpublished opinions, the code and section for statutes, and “volume abbreviation first-page” for articles. Separate entries with semicolons, up to 100.
+If the draft uses a short cite or *supra* with no full cite anywhere, do not guess silently. Either supply the cite and label it "general knowledge, unverified," or leave it out and flag it.
 
-Leave out record cites, books, reports, and anything else Westlaw does not carry. List them for the report. If a docket-style cite (“Order, No. [docket no.] ([Court] [Date])”) turns out to be reported (an F. App’x cite in a later order, for example), add the reporter cite to the list and flag the form in step 6.
+### 2. Build the source list
+One entry per authority: the reporter citation ("466 U.S. 668"), the WL citation for unpublished opinions, the code and section for statutes, and "volume abbreviation first-page" for articles. Separate entries with semicolons, up to 100. Leave out record cites and anything Westlaw does not carry; list them for the report.
 
-If the draft uses a short cite or *supra* with no full cite anywhere, or a full cite missing its volume, do not guess silently. Either supply the cite and label it “general knowledge, unverified,” or leave it out and flag it.
+### 3. Pull the sources from Westlaw (Find & Print)
+- Open Westlaw in the browser and ask the user to sign in the way they usually do: a firm sign-on, a law school portal, or a Thomson Reuters ID. Tell them that if the page you opened is not the one they normally use, they can go to their usual sign-in page in the same browser window. Never enter passwords; once they are signed in, do the rest.
+- Go to Find & Print and paste the list.
+- Settings: Cases → opinion only (no headnotes); Statutes → statutory text only; leave "Substitute with reporter images" unchecked, because the star paging must be text; Delivery → Download; Format → PDF; As → Multiple files (ZIP); turn off dual-column layout.
+- Submit. If Westlaw rejects some citations, take them out, continue, and report them.
+- When the download is ready, click Westlaw's Download button. The browser then shows its own save window, which you cannot press. Tell the user it is coming and ask them to click Save (or Download) in that window. The ZIP lands in their Downloads folder.
+- Tell the user once that Find & Print requests may be charged under their Westlaw plan.
 
-### 3. Run Find & Print
-- Have the user sign in to Westlaw. Claude never enters passwords.
-- If Westlaw opens on a “Select a client ID” screen, use the client ID the user gives (see Settings), then start a new session and go to Find & Print.
-- Open Find & Print and paste the list. Confirm the box actually holds the text (read the textarea value); typing can be lost if the page re-renders.
-- Settings: Cases → “Case opinion only (excludes Headnotes)”; Statutes → “Statutory text only”; leave “Substitute with reporter images” unchecked, because the star paging must be text; KeyCite → uncheck all three, including “List of the first 500 Citing References,” which can be on by default; Delivery → Download; Format → PDF; As → Multiple files (ZIP); Layout and limits → turn off “Dual column layout for Cases.”
-- Submit. If Westlaw shows an “Invalid Citations” box, take those citations out of the list and continue. Report them and try them later by title. Social-science journals are often not on Westlaw.
-- Wait for “The items are ready to download,” then click Westlaw’s Download button. The browser may show its own save window, which Claude cannot press. Tell the user it is coming and ask them to click Save.
-- Find & Print requests are charged according to the user’s Westlaw plan. Mention that once in the report, not every time.
-
-Westlaw’s screens and labels change. If a setting named here is missing or renamed, stop and describe what the page shows rather than guessing.
-
-### 3A. Docket and record documents from Bloomberg Law (optional)
-- Have the user sign in to Bloomberg Law.
-- Find the docket through Bloomberg’s search box (docket number plus party name).
-- Read the docket entries’ text with JavaScript over the table rows. Entries marked **View** are already on Bloomberg. Entries marked **Request** must be retrieved, which may carry a charge: never click Request. List those entries for the user and let them decide.
-- To read a View document, fetch `/product/blaw/document/<ID>/download` inside the page and extract its text with the page’s own `pdfjsLib`. Scanned orders return only the header stamps; for those, render the pages to canvas with pdfjsLib in an overlay, take a screenshot, and read it.
-- Saving Bloomberg PDFs to the computer is unreliable: a blob-link download from JavaScript does not land, and a native download waits on a save window. Ask the user to click Save if a window appears. If the file does not arrive, link that excerpt to the Bloomberg document URL (“Open on Bloomberg Law”) instead of a local file, and say so in the report.
-- Fifth Circuit mandate packets usually hold the opinion or order, the judgment, and the clerk’s transmittal letter together. Check the file stamp on the judgment against the date the draft gives it: the judgment is often filed with the opinion and only issued as the mandate later.
+### 3a. Sources the user supplies
+Ask the user to put one PDF per authority in a folder and tell you which folder. Text PDFs only; if a PDF is a scan with no text, ask for a text version.
 
 ### 4. Get the PDFs
-Find the newest “Westlaw … items from Find And Print.zip” in the user’s downloads and unzip it into a working folder. The files are numbered in the order of the list (“01 - Strickland v Washington.pdf”). With only one or two citations, Westlaw may instead deliver separate PDFs; pick those up the same way. Match each one to its authority, and flag any that did not come back.
+Ask for access to the folder where the download landed (or the folder from 3a). Unzip into a working folder outside the downloads folder. Match each PDF to its authority, and flag any that did not come back.
 
 ### 5. Pull the cited passages
-Westlaw PDFs mark star pages in the text: \*688 for the primary reporter, \*\*2055 and \*\*\*… for parallel reporters, and \*1, \*2 for WL cites. Strip the parallel markers, split the text on the single-star markers, and take each pinned page’s text. Also take the last few hundred characters of the page before it, so a sentence that begins on the earlier page reads whole. A one-page memorandum opinion has no star markers; take its text directly.
+Westlaw PDFs mark star pages in the text: \*688 for the primary reporter, \*\*2055 and \*\*\* for parallel reporters, and \*1, \*2 for WL cites. Strip the parallel markers, split the text on the single-star markers, and take each pinned page's text, plus the last few hundred characters of the page before it, so a sentence that starts on the earlier page reads whole. Find the PDF page where each marker appears, for the "open full source" link (#page=N). Strip page headers and footers. Use the script at the end of this file. When a pin is not a star page (law-review pages, statute subsections, or PDFs from another service), find the passage by searching for the quoted or relied-on language.
 
-Find the PDF page (the physical page) where each star marker appears, so the “open full source” link can use #page=N. Strip the Westlaw page headers and footers.
-
-Use the script at the end of this file. When a pin is not a star page (law-review page numbers in some PDFs, or statute subsections), find the passage by searching for the quoted or relied-on language instead. For docket documents, use the document’s own page numbers.
+### 5a. Record cites (only if the user chose them)
+- From the user's example cite, work out which part of a cite names the file (a volume, a document or docket number, an appendix) and which number names the page (a printed transcript page, a stamped record page such as ROA.1234, a court's header page, or an appendix page). The record may be one file or many.
+- List the record files in the user's folder and match each cite to its file (for example, "Vol. 39" or "RR39" to 39 R.R.; "ECF 52" to Dkt. 52; one consecutively stamped record for ROA cites). If the matching is unclear, show the user your mapping and ask before going on.
+- Read only the cited pages. Find each cited page by the number the cite uses, as it appears on the page itself, never by the PDF page count; the two rarely match. When a page carries two numbers (a court's header page and the document's own page, say), and the user's example does not settle which the cite means, ask. If you cannot find the number, mark the cite "check" and say so.
+- For each record cite, record both numbers: the page number the cite uses and the PDF page it falls on.
+- Link each record cite to the file where it sits, with a relative link from the viewer's HTML file to the record file on the user's computer, at the PDF page. For example, when the viewer folder and the record both sit in Downloads: ../volume.pdf#page=N. Build the link from the real paths on the user's computer (as the folder listing shows them), never from paths in your own workspace. Do not use full file:/// addresses; browsers often refuse them. Copy nothing into the viewer folder.
+- The record must be text-searchable PDFs on the user's computer. A file stored only online (a cloud file not downloaded, or a document vault reached through a website) cannot be linked; tell the user which ones.
 
 ### 6. Check each citation
-Read each pinned passage against the sentence it supports. Assign one status:
-- **ok — Supported.** The passage says what the sentence says. Any quotation matches exactly, or the brackets account for every change. Also use ok, with no excerpt, for a cite that only names the case as a whole (for example, a case named in a textual sentence as the governing standard, without relying on any particular passage). A citation sentence or clause that supports a proposition always relies on specific material and needs a pin, even when it cites several cases at once. Its note reads “Names the case as a whole; no pin needed.”
-- **check — Check.** The quotation does not match, the passage supports only part of the sentence, the pin is wrong, the cite form is wrong in a way that matters (a docket cite to a reported opinion, a judgment given the wrong date or label), or the sentence describes the source inaccurately. Say exactly what is off, and give the fix (the right pin, the right cite, or the bracketed correction).
-- **pin — No pincite.** A cite to specific material (a holding, a test, a quotation) with no pin. Show the page that the nearby text relies on. Never use this status for a cite that only names the case as a whole. When it is unclear whether a sentence relies on specific material, use check and say so in the note, so the user decides.
-- **none — Source not loaded.** Record cites, books, Bloomberg “Request” entries, and anything missing from the ZIP. Name what the user would need to add. When another loaded source corroborates the point (a later order describing an earlier one), show that passage, labeled “corroboration only.”
-- **flagged.** Add a “cite-checker flagged” tag on top of the status for disputed cites.
+Read each passage against the sentence it supports. Assign one status:
+- **ok — Supported.** The passage says what the sentence says. Any quotation matches exactly, or brackets account for every change. Use ok, with no excerpt, only for a cite that names a case as a whole in a textual sentence, as part of the sentence itself, without relying on any particular passage (Bluebook R. 3.2(a)). A citation sentence or clause that supports a proposition always relies on specific material and needs a pin, even when it cites several cases at once. A whole-case cite's note reads "Names the case as a whole; no pin needed (Bluebook R. 3.2(a))."
+- **check — Check.** The quotation does not match, the passage supports only part of the sentence, the pin is wrong, or the sentence describes the source inaccurately. Say exactly what is off, and give the fix (the right pin, or the bracketed correction).
+- **pin — No pincite.** A cite to specific material with no pin. Show the page the nearby text relies on. When it is unclear whether the sentence relies on specific material, use check and say so, so the user decides.
+- **none — Source not loaded.** Anything not in the PDFs or the record folder. Name what the user would need to add.
 
-Notes say only what the passage in the PDF says, and put “Inference:” before anything beyond it. Flag substantive problems only: a misquotation, a wrong pin, a holding that is overstated or mischaracterized. Ignore pure typos and stray punctuation. Shade the exact relied-on words in each excerpt.
+Notes say only what the source says. Put "Inference:" before anything beyond it. Flag substantive problems only: a misquotation, a wrong pin, a holding overstated or mischaracterized, a fact the record page does not support. Ignore pure typos. Shade the exact relied-on words in each excerpt.
 
 ### 7. Build the page
-Save everything in one folder on the user’s computer, named with the folder pattern in Settings. It holds:
-- the HTML file, with the same name plus .html;
-- a sources/ folder with all the PDFs (Westlaw and any saved docket documents), renamed in lowercase-hyphenated form, which later sections can reuse.
+Save a folder in the user's Downloads folder (or wherever they ask), named for the draft plus "cite-viewer" and the date. It holds:
+- the HTML file;
+- a sources/ folder with the case PDFs. (Record files stay where they are.)
 
 Page rules:
-- The draft goes on the left, the passage panel on the right; on a narrow screen they stack.
-- A legend at the top gives the count for each status, plus “Dotted red text = legal statement with no citation.”
-- Show the draft text exactly as written. The viewer reports problems; it never fixes them in the text.
-- Shade passages light blue. Left-aligned text, serif font, using the font in Settings.
-- Make the page work in both light and dark mode.
-- Clicking a citation shows: the status badge, the citation as written, the note, and then each pinned excerpt with a header giving the page in both numberings (“466 U.S. at 694 · PDF page 7”) and the link “Open full source at \*N ↗” (sources/FILE#page=N), or “Open on Bloomberg Law ↗” for a docket document that is not saved locally.
+- Draft on the left, passage panel on the right; on a narrow screen they stack.
+- A legend at the top gives the count for each status, plus "Dotted red text = legal statement with no citation."
+- Show the draft text exactly as written.
+- Shade passages light blue. Left-aligned text, serif font.
+- Works in light and dark mode.
+- Clicking a citation shows the status badge, the citation as written, the note, each excerpt with its page header and an "Open full source ↗" link, and then the note box.
+- Every excerpt header names the page in both numberings, so the user can confirm the page without opening the file: for a case, "466 U.S. at 694 · PDF page 7"; for the record, "12 R.R. 45 · PDF page 10."
+- Uncited legal statements are clickable too. Clicking one shows a "No citation" badge, the statement as written, a one-line note (for example, "States a legal rule; add a cite or cut it"), and the note box.
 
-**Never publish the viewer as an artifact or host it anywhere.** It holds the client’s pleading, and with record cites it would hold record material. It stays on the user’s computer. If the user asks to publish it anyway, urge caution about client confidentiality, and leave record excerpts out of any hosted version.
+**Note box.** Under every flag's panel (citations and uncited statements alike), a text box labeled "Your note (for example, the fix you want)." Notes save automatically in the browser for this file. Wrap every save and load in try/catch, so the page still works if the browser blocks storage. A flag with a note gets a small dot in the draft. A "Copy all notes" button at the top copies every note as a numbered list in draft order, each line starting with the citation as written (or "Uncited:" and the first words of the statement), so the user can paste the list into Claude or keep it beside Word. Tell the user once that notes live only in that browser on that computer; the copied list is the safe copy.
 
 ### 8. Check the page
-Open the HTML in a browser (Playwright, or the user’s browser). Click at least one citation of each status and take a screenshot. Confirm that the excerpts show the shaded language and that the note sits at the top of the panel.
+Open the page and click at least one citation of each status, and one uncited statement. Confirm that the excerpts show the shaded language and both page numbers, the note sits at the top of the panel, every flag has a note box, and "Copy all notes" works.
+
+Record links need a separate check, because you cannot click a link on the user's computer. For each record link, work out where it points from the viewer's HTML file on the user's computer and confirm, by listing that folder, that the file is there. Then ask the user to click one record link and tell you whether it opened at the right page. Until they confirm, do not report the record links as working; report them as "linked, not yet confirmed."
 
 ### 9. Report
-Keep it short, strongest point first:
-- Where the folder is, in plain words, and that the user opens it by double-clicking the HTML file.
-- The counts by status.
-- Each “check” item in one or two lines, with its fix.
-- The “no pincite” cites, uncited statements, and sources not loaded, rejected by Find & Print, or left as Bloomberg Requests.
-- One next step: fix what the viewer flagged, re-check only the changed cites, then finish formatting.
+Short, strongest point first:
+- Where the folder is, and how to open the viewer: "Open the viewer in Google Chrome (right-click the HTML file, choose Open With, then Google Chrome). We have tested it on a Mac with Chrome, and it works there. Safari blocks the record links. We have tested record links with Texas-style record cites (12 R.R. 41) but not yet with other formats. We have not tested it on a Windows PC. Chrome should work there too, and Microsoft Edge may, but we have not tried either."
+- Counts by status.
+- Each "check" item in one or two lines, with its fix.
+- The "no pincite" cites, uncited statements, sources not loaded or rejected, and any record files that could not be linked.
+- Whether the record links are confirmed (see step 8).
+- Two ways to work through it: talk through each flag with Claude, which keeps a list and makes the changes after the user approves them; or work in Word with the viewer open beside it, typing fixes in the note boxes. Say that "Copy all notes" is a button in the viewer that only the user can press, and that they can paste the copied list back into this chat.
 
-## Scripts
+## Script
 
-star_extract.py: given a PDF and a list of star pages, it returns each page’s text, the tail of the page before it, and the PDF page where each marker appears. It needs poppler-utils (pdfinfo and pdftotext).
+star_extract.py: given a PDF and a list of star pages, it returns each page's text, the tail of the page before it, and the PDF page where each marker appears.
 
 ```python
 import re, subprocess, sys, json
@@ -136,15 +123,8 @@ def pdf_pages(pdf):
     return [subprocess.run(['pdftotext', '-f', str(i), '-l', str(i), pdf, '-'],
                            capture_output=True, text=True).stdout for i in range(1, n + 1)]
 
-# Westlaw prints a running header on each page that begins "WESTLAW ©" and ends
-# with the case name and year in parentheses. The account holder's name and the
-# "For Educational Use Only" line vary by subscription, so the pattern allows both.
-HEADER = re.compile(
-    r'WESTLAW\s*©.*?Works\.\s*\d+\s*(?:[^\n]*?\d{1,2}/\d{1,2}/\d{2,4}\s*)?'
-    r'(?:For Educational Use Only\s*)?[^\n]*?\(\d{4}\)\s*[^\n]*\n', re.S)
-
 def clean(t):
-    t = HEADER.sub('', t)
+    t = re.sub(r'WESTLAW\s*©.*?For Educational Use Only[^\n]*\n', '', t, flags=re.S)
     t = re.sub(r'\*\*\*?\d+\s?', '', t)          # drop parallel-reporter markers
     t = re.sub(r'-\n(?=[a-z])', '', t)
     return re.sub(r'\s+', ' ', t)
@@ -172,6 +152,6 @@ if __name__ == '__main__':
     print(json.dumps(out))
 ```
 
-Run scripts that read the downloaded PDFs with `python3 -I`, from a folder separate from the PDFs.
+Run scripts that read downloaded PDFs with python3 -I, from a folder separate from the PDFs.
 
-Page structure: one self-contained HTML file. The draft text goes in `<article id="draft">`, with each citation as `<a href="#" class="cite" data-id="cN">…</a>` and each uncited legal statement as `<span class="uncited">…</span>`. The panel goes in `<aside id="panel">`. A JSON object embedded in a script maps each id to `{cite, status, note, excerpts: [{label, file, page, star, html}]}`, where html is the escaped excerpt with the relied-on words in `<mark>`, and file is a sources/ path or a Bloomberg URL. The script sets `data-s=status` on each link, which colors its underline (ok green, check red, pin amber, none gray dashed). On click, it fills the panel and scrolls the panel to the top.
+Page structure: one self-contained HTML file. The draft goes in <article id="draft">, each citation as <a href="#" class="cite" data-id="cN">…</a> and each uncited legal statement as <span class="uncited">…</span>. The panel goes in <aside id="panel">. Each uncited statement is <span class="uncited" data-id="uN" tabindex="0">…</span>. A JSON object in a script maps each id to {cite, status, note, link, excerpts: [{label, html, pdfpage}]}, where label carries both page numbers, html is the escaped excerpt with the relied-on words in <mark>, and link is sources/FILE or the record file's relative path (for example, ../volume.pdf). The script sets data-s=status on each link (ok green, check red, pin amber, none gray dashed). On click, it fills the panel, loads that citation's saved note, and scrolls the panel to the top.
