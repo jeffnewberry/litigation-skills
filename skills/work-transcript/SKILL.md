@@ -41,7 +41,7 @@ Ask how many pages to condense the session to. Wait for the answer. If `QUESTION
 7. Name the file the way the user names files.
 8. When sending, tell the user to click Yes when Word asks to update fields, so the index page numbers recalculate in their font.
 
-A sample content file built from a made-up session is in sample-content.py.
+A sample built from a made-up session is in sample-transcript.pdf, with its content file in sample-content.py.
 
 ## Build script
 
