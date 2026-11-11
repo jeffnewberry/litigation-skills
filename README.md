@@ -1,12 +1,14 @@
 # Litigation Skills for Claude
 
-Three skills for lawyers who draft with Claude. Each one is a folder of instructions that teaches Claude to do a specific litigation task the same careful way every time.
+Five skills for lawyers who draft with Claude. Each one is a folder of instructions that teaches Claude to do a specific litigation task the same careful way every time.
 
 | Skill | What it does |
 |---|---|
 | [f-appx-not-fed-appx](skills/f-appx-not-fed-appx/) | Checks and corrects citations under the Bluebook (22nd ed.), labels every fix by how sure it is, and sends you to the book for anything it has not recorded. |
 | [cite-viewer](skills/cite-viewer/) | Builds a page on your own computer where every citation in your draft opens the cited passage from the source, marked to show whether it supports your sentence. |
 | [derivative-docs](skills/derivative-docs/) | Builds the companions to a main pleading (appendix, stay motion, IFP motion, proposed order, record excerpts) so the caption, counsel block, and relief match exactly. Checklists cover Texas and federal capital habeas practice. |
+| [final-filing-check](skills/final-filing-check/) | Runs the last checks on a court document before filing: no stranded headings or split signature blocks, clean tables, an updated word count, and a file scrubbed of tracked changes, comments, and author names. |
+| [work-transcript](skills/work-transcript/) | Turns a work session with Claude into a condensed transcript laid out like a court reporter’s record, as a paper trail of what you asked and what Claude did, including where it got something wrong. |
 
 ## How to install a skill
 
